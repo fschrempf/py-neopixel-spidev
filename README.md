@@ -17,7 +17,7 @@ The following Python modules are needed:
 ## Attributions
 
 This module barely contains any new code, but mainly bundles code from existing
-projects for easier usage.
+projects for easier usage. Thanks to all the authors and contributors.
 
 ### Adafruit CircuitPython Pypixelbuf
 
