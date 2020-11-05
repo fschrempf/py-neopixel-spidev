@@ -50,7 +50,6 @@ RGBW = "RGBW"
 GRBW = "GRBW"
 """Green Red Blue White"""
 
-
 class NeoPixelSpiDev(pixelbuf.PixelBuf):
     """
     A sequence of neopixels.
@@ -111,7 +110,7 @@ class NeoPixelSpiDev(pixelbuf.PixelBuf):
     """
 
     def __init__(
-        self, bus, dev, n, *, bpp=3, brightness=1.0, auto_write=True, pixel_order=None
+        self, bus, dev, n, *, bpp=3, brightness=1.0, auto_write=True, pixel_order=None, freq_hz=800000
     ):
         if not pixel_order:
             pixel_order = GRB if bpp == 3 else GRBW
@@ -127,6 +126,7 @@ class NeoPixelSpiDev(pixelbuf.PixelBuf):
         self.spi = spidev.SpiDev()
         self.spi.open(bus, dev)
         self.spi.mode = 0
+        self.spi.max_speed_hz = int(4 * freq_hz) # 4 SPI bits for one period
 
     def deinit(self):
         """Blank out the NeoPixels and close the SPI."""
