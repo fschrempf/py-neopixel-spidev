@@ -19,5 +19,9 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: Linux",
     ],
+    install_requires=[
+        'numpy',
+        'spidev'
+    ],
     python_requires='>=3.6',
 )
