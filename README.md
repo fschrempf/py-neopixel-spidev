@@ -48,7 +48,7 @@ To emulate the protocol data, we use the code from the [ws2812-spi](https://gith
 
 ## Usage
 
-See the examples in `wheel.py` and `wheel_hsv.py` and the docs for the [Adafruit
+See the examples in `examples/` and the docs for the [Adafruit
 NeoPixel class](https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel#usage-example).
 
 ## Copyright
