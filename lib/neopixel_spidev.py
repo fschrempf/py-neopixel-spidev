@@ -33,6 +33,7 @@
 # pylint: disable=ungrouped-imports
 import sys
 import spidev
+from warnings import warn
 from lib.neopixel_spi_write import neopixel_spi_write
 from lib import pixelbuf
 
@@ -126,6 +127,23 @@ class NeoPixelSpiDev(pixelbuf.PixelBuf):
         self.spi = spidev.SpiDev()
         self.spi.open(bus, dev)
         self.spi.mode = 0
+        try:
+            self.spi.mosi_idle_low = True
+        except AttributeError as e:
+            warn(
+                f"{e} - The Python spidev module doesn't include support for the "
+                "'mosi_idle_low' flag. Please make sure that you are using the "
+                "latest version and py-spidev was built with kernel headers "
+                "version 6.5 or later. Otherwise the idle level of the data "
+                "signal might be wrong and the LEDs might not work.",
+                stacklevel=2
+            )
+        except OSError as e:
+            warn(
+                f"{e} - It looks like the mosi_idle_low flag is not supported "
+                "by the Linux SPI controller driver. Expect failures when "
+                "controlling the LEDs.", stacklevel=2
+            )
         self.spi.max_speed_hz = int(4 * freq_hz) # 4 SPI bits for one period
 
     def deinit(self):
